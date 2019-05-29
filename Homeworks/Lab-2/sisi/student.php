@@ -70,18 +70,23 @@
         }
         private function findCourseId($course_1){
             for($i = 0; $i < count(selectedCourses); $i++){
-                if(selectedCourses[$i]->getIndex == $course_1->getIndex){
+                if(selectedCourses[$i]->getIndex() == $course_1->getIndex()){
                     return $i;
                 }
             }
             return -1;
         }
         function toString(){
+
             $courseString = "";
-            foreach($this->selectedCourses as $key => $value){
-                $courseString .= $this->selectedCourses[$key]->toString();
-                $courseString .= ", <br>";                    
-            }      
+            
+                foreach($this->selectedCourses as $key => $value){
+                    if($this->selectedCourses[$key]!=null){
+                    $courseString .= $this->selectedCourses[$key]->toString();
+                    $courseString .= ", <br>";             
+                    }       
+                }      
+            
          
             return (string)((string)$this->getFirstName().", <br>".(string)$this->getLastName().", <br>".(string)$this->getId().", <br> ".(string)$this->getMajor().", <br>".$courseString);
         }

@@ -60,17 +60,30 @@ class SiSi{
     }
 
     function printStudents(){
-        foreach($this->StudentArray as $key => $value)
-        echo $this->StudentArray[$key]->toString()."<br>";
+        foreach($this->StudentArray as $key => $value){
+        echo $this->StudentArray[$key]->toString()."<br>";}
     } 
+
+    function printToFile(){
+        $file = fopen("SiSi.txt","w") or die("Error on opening file for write!");
+        foreach($this->StudentArray as $key => $value)
+        {
+           fwrite($file,str_replace("<br>","\n", $this->StudentArray[$key]->toString()."\n"));
+        }
+    }
     function __construct(){
         $this->StudentArray = array();
     }
     function addStudent($Stud){
         array_push($this->StudentArray, $Stud);
     }
-    function addStudentById($id,$selectedCourses){
-
+    function addStudentByParameter($name = "firstName",$lname = "lastName", $id = 0, $major = "Major", $selectedCourses=null){
+        array_push($this->StudentArray,
+        new Student($name,
+        $lname, 
+        $id,
+        $major, 
+        $selectedCourses));
     }
     function findStudent($name, $StudentArray){
         $resultStudents= array();
